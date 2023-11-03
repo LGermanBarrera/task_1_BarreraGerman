@@ -1,9 +1,8 @@
-package login;
+package amazonWebTests;
 
 import base.BaseTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 import pages.PasswordPage;
 import pages.SignInPage;
 
