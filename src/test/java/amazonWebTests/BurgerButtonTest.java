@@ -1,4 +1,4 @@
-package login;
+package amazonWebTests;
 
 import base.BaseTests;
 import org.testng.Assert;
