@@ -29,13 +29,18 @@ public class HomePage {
     private By changeLang = By.cssSelector("[class='icp-nav-link-inner']");
 
     private By selectLanguages = By.cssSelector(".nav-a.nav-a-2.icp-link-style-2");
-//            = By.cssSelector("div#nav-flyout-icp>div.nav-tpl-itemList >a");
+    //            = By.cssSelector("div#nav-flyout-icp>div.nav-tpl-itemList >a");
     private By nineLanguages = By.cssSelector("div#nav-flyout-icp>div.nav-template.nav-flyout-content.nav-tpl-itemList>a[href^='#switch'] ");
 
     private By englishLang = By.cssSelector("div#nav-flyout-icp-footer-flyout>div.nav-template.nav-flyout-content.nav-tpl-itemList, a[href=\"#switch-lang=en_US\"]");
     //    private By englishLang = By.cssSelector("div#nav-flyout-icp-footer-flyout>div.nav-template.nav-flyout-content.nav-tpl-itemList,a[href='#switch-lang=en_US']::first-line");
-    @FindBy(css = "nav-bb-left,#nav-bb-logo")
-    private WebElement basicLogo;
+    private By basicLogo = By.cssSelector("div.nav-bb-left a#nav-bb-logo");
+
+    private By englishLogo = By.cssSelector("img[alt=\"Shop Early Black Friday deals\"]");
+
+    private By menuList = By.cssSelector("div#hmenu-content>ul[class=\"hmenu hmenu-visible\"]>li");
+
+    private By yourAccount = By.cssSelector("div#hmenu-content [class=\"hmenu hmenu-visible\"]>li a[href$=\"1_35\"]");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -51,7 +56,11 @@ public class HomePage {
     }
 
     public void clickOnBurgerButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(
+                driver.findElement(englishLogo))).isDisplayed();
         driver.findElement(burgerButton).click();
+
     }
 
     public boolean isGreetingMessagePresent() {
@@ -96,7 +105,8 @@ public class HomePage {
 
     public HomePage clickIfOldPageIsPresent() {
         try {
-            if (basicLogo.isDisplayed()) ;
+            if (driver.findElement(basicLogo).isDisplayed()) ;
+            driver.findElement(basicLogo).click();
             return new HomePage(driver);
         } catch (Exception e) {
             System.out.println("The old page was not clicked");
@@ -109,6 +119,16 @@ public class HomePage {
     public List<WebElement> printLanguageList() {
         List<WebElement> languageList = driver.findElements(nineLanguages);
         return languageList;
+    }
+
+    public List<WebElement> burgerButtonList() {
+        List<WebElement> list = driver.findElements(menuList);
+        return list;
+    }
+
+    public YourAccountPage clickOnYourAccount() {
+        driver.findElement(yourAccount).click();
+        return new YourAccountPage(driver);
     }
 }
 

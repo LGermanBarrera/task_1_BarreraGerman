@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import pages.HomePage;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTests {
@@ -25,7 +26,7 @@ public class BaseTests {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
         driver = new ChromeDriver();
         driver.get("https://www.amazon.com/ref=nav_logo");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 //        driver.manage().window().fullscreen();
         homePage = new HomePage(driver);
 
