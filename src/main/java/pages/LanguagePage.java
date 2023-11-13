@@ -1,8 +1,5 @@
 package pages;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.example.App;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,7 +9,6 @@ import java.time.Duration;
 
 public class LanguagePage {
 
-//    private static final Logger LOGGER = LogManager.getLogger(App.class);
     private WebDriver driver;
 
     private By englishChosen = By.cssSelector("div#icp-language-settings>div.a-spacing-mini");
@@ -30,16 +26,10 @@ public class LanguagePage {
     }
 
     public LanguagePage clickOnSubmit() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOf(
+                driver.findElement(submitLanguage))).isDisplayed();
         driver.findElement(submitLanguage).click();
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            wait.until(ExpectedConditions.visibilityOf(
-                    driver.findElement(isPageInEnglish))).isDisplayed();
-//            return driver.findElement(isPageInEnglish).getAttribute("outerText");
-        } catch (Exception e) {
-
-//            LOGGER.error("English language was not selected");
-        }
         return new LanguagePage(driver);
     }
 
