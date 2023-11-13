@@ -1,31 +1,27 @@
 package pages;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.example.App;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
 
 public class HomePage {
-    //    private static final Logger LOGGER = LogManager.getLogger(App.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HomePage.class);
     private WebDriver driver;
     private By logo = By.cssSelector("[aria-label=\"Amazon\"]");
     private By signIn = By.cssSelector("#nav-link-accountList-nav-line-1");
 
-    private By burgerButton = By.cssSelector("[role='button']");
+    private By burgerButton = By.cssSelector("i[class=\"hm-icon nav-sprite\"]");
+//    private By burgerButton = By.cssSelector("a#nav-logo-sprites");
 
     private By greetingMessage = By.cssSelector("#hmenu-customer-profile-right");
-
-    private By yourAccountButton = By.cssSelector("\ta[href^=\"/gp/css/homepage.html?ref_=nav_em_ya_0_1_1_35\"]");
-
     private By changeLang = By.cssSelector("[class='icp-nav-link-inner']");
 
     private By selectLanguages = By.cssSelector(".nav-a.nav-a-2.icp-link-style-2");
@@ -56,30 +52,27 @@ public class HomePage {
     }
 
     public void clickOnBurgerButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOf(
-                driver.findElement(englishLogo))).isDisplayed();
-        driver.findElement(burgerButton).click();
-
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            wait.until(ExpectedConditions.visibilityOf(
+                    driver.findElement(burgerButton))).isDisplayed();
+            driver.findElement(burgerButton).click();
+            LOGGER.info("Burger button is clicked");
+        } catch (Exception e) {
+            LOGGER.error("Burger button was not clicked");
+        }
     }
 
     public boolean isGreetingMessagePresent() {
-//        LOGGER.info("Is_greeting_message_test is being executed");
-        boolean result = false;
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(5000));
-            return result = wait.until(ExpectedConditions.visibilityOf(
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+            wait.until(ExpectedConditions.visibilityOf(
                     driver.findElement(greetingMessage))).isDisplayed();
+//            return driver.findElement(greetingMessage).isDisplayed();
         } catch (Exception e) {
-//            LOGGER.error("Error displaying Greeting Message " + e);
-
+           LOGGER.info("Burger button was not clicked");
         }
-        return false;
-    }
-
-    public YourAccountPage clickOnYourAccountButton() {
-        driver.findElement(yourAccountButton).click();
-        return new YourAccountPage(driver);
+        return driver.findElement(greetingMessage).isDisplayed();
     }
 
     public LanguagePage clickOnLanguages() {
@@ -97,7 +90,7 @@ public class HomePage {
                     driver.findElement(englishLang))).isDisplayed();
         } catch (Exception e) {
 
-//            LOGGER.error("English language was not selected");
+            LOGGER.error("English language was not selected " + e);
         }
 
         return this;
@@ -109,7 +102,7 @@ public class HomePage {
             driver.findElement(basicLogo).click();
             return new HomePage(driver);
         } catch (Exception e) {
-            System.out.println("The old page was not clicked");
+          LOGGER.info("The old page was not clicked" +e);
             throw new RuntimeException(e);
         } finally {
             return new HomePage(driver);
