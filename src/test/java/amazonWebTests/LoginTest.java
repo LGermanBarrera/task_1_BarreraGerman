@@ -10,12 +10,22 @@ public class LoginTest extends BaseTests {
 
 
     @Test
-    public void loginTest() {
+    public void badEmailCredentialTest() {
+        homePage.clickIfOldPageIsPresent();
         SignInPage signIn = homePage.clickOnSignIn();
-        signIn.setUsername("barreragerman27@gmail.com");
-        PasswordPage setPassword = signIn.clickOnContinueButton();
-        setPassword.setPassword("TonyDungy");
-         homePage = setPassword.clickSubmitButton();
-        Assert.assertTrue(homePage.isHomePageOpened(),"login was not performed");
+        signIn.setUsername("barreragerma27@gmail.com");
+        signIn.clickContinueBtn();
+        Assert.assertTrue(signIn.isProblemMessagePresent(),"login was not performed");
+    }
+
+    @Test
+    public void badPasswordCredentialTest() {
+        homePage.clickIfOldPageIsPresent();
+        SignInPage signIn = homePage.clickOnSignIn();
+        signIn.setUsername("barreragerman27@gmail.com")
+                .clickContinueBtn()
+                .setPassword("TogyBungy")
+                .clickOnSignInBtn();
+        Assert.assertTrue(signIn.isProblemMessagePresent(),"login was not performed");
     }
 }

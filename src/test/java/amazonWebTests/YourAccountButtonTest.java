@@ -17,10 +17,6 @@ public class YourAccountButtonTest extends BaseTests {
     @Test
     public void yourAccountButtonTest() {
         homePage.clickIfOldPageIsPresent();
-        homePage.hoverOverChangeLanguage();
-        homePage.printLanguageList();
-        List<WebElement> langList = homePage.printLanguageList();
-        langList.get(0).click();
         homePage.clickOnBurgerButton();
         YourAccountPage yourAccount = homePage.clickOnYourAccount();
 
