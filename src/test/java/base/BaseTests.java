@@ -9,12 +9,11 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import pages.HomePage;
+import pages.WrapperAbstractPage;
 
 
 public class BaseTests {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseTests.class);
-    @FindBy(css = "nav-bb-left,#nav-bb-logo")
-    private WebElement basicLogo;
     private WebDriver driver;
     protected HomePage homePage;
 
@@ -35,7 +34,6 @@ public class BaseTests {
 
     @AfterClass
     private void tearDown() {
-        driver.close();
         driver.quit();
     }
 

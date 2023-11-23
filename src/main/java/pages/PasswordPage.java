@@ -8,11 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class PasswordPage {
     private WebDriver driver;
-    @FindBy(css = "[type=\"password\"]")
-    private WebElement password;
+
     //    private By password = By.cssSelector("[type=\"password\"]");
-    @FindBy(id = "signInSubmit")
-    private WebElement clickSubmit;
+
 
     //    private By clickSubmit = By.id("signInSubmit");
     public PasswordPage(WebDriver driver) {
@@ -20,13 +18,8 @@ public class PasswordPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void setPassword(String password1) {
-        password.sendKeys(password1);
-    }
 
-    public HomePage clickSubmitButton() {
-        clickSubmit.click();
-        return new HomePage(driver);
-    }
+
+
 
 }

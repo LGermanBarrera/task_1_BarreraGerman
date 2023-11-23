@@ -12,12 +12,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class YourAccountPage {
+public class YourAccountPage extends WrapperAbstractPage {
     private static final Logger LOGGER = LogManager.getLogger(YourAccountPage.class);
-    private WebDriver driver;
 
     public YourAccountPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
+
         PageFactory.initElements(driver, this);
     }
 
@@ -27,15 +27,7 @@ public class YourAccountPage {
 
     public boolean isTitlePresent() {
         LOGGER.info("Here it is getting the title element");
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOf(
-                    pageTitle));
-            return pageTitle.isDisplayed();
-        } catch (Exception e) {
-            LOGGER.error("Error getting page title" + e);
-        }
-        return false;
+      return isElementPresent(pageTitle);
     }
 
 

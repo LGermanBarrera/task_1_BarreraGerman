@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class SignInPage {
+public class SignInPage extends WrapperAbstractPage {
     private WebDriver driver;
     @FindBy(css = "[type=email]")
     private WebElement userEmail;
@@ -14,13 +14,27 @@ public class SignInPage {
     private WebElement continueButton;
 //    private By continueButton = By.cssSelector("[class=\"a-button-input\"]");
 
+    @FindBy(css = "#auth-error-message-box .a-box-inner .a-alert-heading ")
+    private WebElement errorMessage;
+
+    @FindBy(css = "input[id=\"continue\"] ")
+    private WebElement clickContinue;
+
+    @FindBy(css = "#signInSubmit")
+    private WebElement clickSubmitPass;
+
+
+    @FindBy(css = "[type=\"password\"]")
+    private WebElement setPassword;
+
     public SignInPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
-    public void setUsername(String username) {
+    public SignInPage setUsername(String username) {
         userEmail.sendKeys(username);
+        return this;
     }
 
     public PasswordPage clickOnContinueButton() {
@@ -28,4 +42,22 @@ public class SignInPage {
         return new PasswordPage(driver);
     }
 
+    public boolean isProblemMessagePresent() {
+        return isElementPresent(errorMessage);
+    }
+
+    public SignInPage clickContinueBtn() {
+        click(clickContinue, "Submit credentials button");
+        return this;
+    }
+
+    public SignInPage clickOnSignInBtn() {
+        click(clickSubmitPass, "Submit credentials button");
+        return this;
+    }
+
+    public SignInPage setPassword(String password) {
+        setPassword.sendKeys(password);
+        return this;
+    }
 }
