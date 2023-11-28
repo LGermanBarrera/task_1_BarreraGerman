@@ -68,6 +68,12 @@ public class HomePage extends WrapperAbstractPage {
     private WebElement yourAccount;
 //    private By yourAccount = By.cssSelector("div#hmenu-content [class=\"hmenu hmenu-visible\"]>li a[href$=\"1_35\"]");
 
+    @FindBy(css = "#twotabsearchtextbox ")
+    private WebElement searchBar;
+
+    @FindBy(css = ".nav-right>.nav-search-submit ")
+    private WebElement searchBarButton;
+
     public HomePage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
@@ -129,6 +135,23 @@ public class HomePage extends WrapperAbstractPage {
     public YourAccountPage clickOnYourAccount() {
         click(yourAccount, "Your Account button");
         return new YourAccountPage(driver);
+    }
+
+    public HomePage clickOnSearchBar() {
+        click(searchBar, "Search bar");
+        return this;
+    }
+
+    public HomePage typeProduct(String xiaomi) {
+        LOGGER.info("Typing products name");
+        searchBar.sendKeys(xiaomi);
+        return this;
+    }
+
+    public ProductsPage clickOnSearchIcon() {
+        click(searchBarButton, "Search Bar icon");
+        return new ProductsPage(driver);
+
     }
 }
 
