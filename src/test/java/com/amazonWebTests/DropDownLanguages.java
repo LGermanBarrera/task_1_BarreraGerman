@@ -1,4 +1,4 @@
-package amazonWebTests;
+package com.amazonWebTests;
 
 import base.BaseTests;
 import org.openqa.selenium.WebElement;
