@@ -26,7 +26,7 @@ public class HomePage extends WrapperAbstractPage {
     //    @FindBy(css = "i[class=\"hm-icon nav-sprite\"] ")
 //    @FindBy(css = "a#nav-hamburger-menu ")
 //    @FindBy(css = "[class~=\"hm-icon\"]")
-    @FindBy(css = "[class~=\"hm-iconn\"]")
+    @FindBy(css = "[class~=\"hm-icon\"]")
     private WebElement burgerButton;
 //    private By burgerButton = By.cssSelector("i[class=\"hm-icon nav-sprite\"]");
 //    private By burgerButton = By.cssSelector("a#nav-logo-sprites");
