@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class BurgerButtonTest extends BaseTests {
 
-    @Test(threadPoolSize = 3,invocationCount = 2)
+    @Test()
     public void burgerButtonTest() {
         homePage.clickIfOldPageIsPresent();
         homePage.clickOnBurgerButton();
